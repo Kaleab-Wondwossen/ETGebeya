@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
       // Navigate to the home screen after the last splash screen
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
     }
   }

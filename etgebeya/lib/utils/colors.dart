@@ -28,8 +28,8 @@ class AppColors {
   static const Color onHighlightColor = Colors.black; // Black (for text/icons on highlight color)
 
   // Icon Colors
-  static const Color primaryIconColor = Colors.black; // Black
-  static const Color secondaryIconColor = Color(0xFF757575); // Gray
+  static const Color primaryIconColor = Color.fromRGBO(48, 111, 183, 1); // Black
+  static const Color secondaryIconColor = Color.fromRGBO(96, 132, 173, 1); // Gray
 
   // Button Colors
   static const Color primaryButtonColor = Color(0xFF6200EE); // Deep purple

@@ -3,15 +3,22 @@ import 'package:flutter/material.dart';
 import '../../utils/colors.dart';
 
 class SplashScreen1 extends StatelessWidget {
+  const SplashScreen1({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      // decoration: const BoxDecoration(
+      //     gradient: LinearGradient(
+      //         colors: [Colors.blue, Colors.purple],
+      //         begin: Alignment.centerRight)),
       color: AppColors.backgroundColor, // White background
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('images/shoppingCart.png', width: 150, height: 150), // App logo
+            Image.asset('images/shoppingCart.png',
+                width: 150, height: 150), // App logo
             const SizedBox(height: 20),
             const Text(
               'Welcome to E-Commerce App',
@@ -39,7 +46,8 @@ class SplashScreen2 extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.explore, size: 100, color: AppColors.primaryColor), // Feature icon
+            Icon(Icons.explore,
+                size: 100, color: AppColors.primaryColor), // Feature icon
             SizedBox(height: 20),
             Text(
               'Explore Thousands of Products',
@@ -67,7 +75,8 @@ class SplashScreen3 extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.person_add, size: 100, color: AppColors.accentColor), // Sign-up icon
+            Icon(Icons.person_add,
+                size: 100, color: AppColors.accentColor), // Sign-up icon
             SizedBox(height: 20),
             Text(
               'Sign Up to Get Started',

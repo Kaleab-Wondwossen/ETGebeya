@@ -1,4 +1,3 @@
-import 'package:etgebeya/screens/home_page.dart';
 import 'package:etgebeya/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
