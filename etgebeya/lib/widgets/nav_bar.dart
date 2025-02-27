@@ -2,6 +2,9 @@ import 'package:etgebeya/measures/size_consts.dart';
 import 'package:etgebeya/utils/colors.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/Profile/profile_screen.dart';
+import '../screens/home_page.dart';
+
 class MyNavBar extends StatefulWidget {
   final int index;
   final Function(int)? onIndexChanged;
@@ -17,8 +20,10 @@ class _MyNavBarState extends State<MyNavBar> {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: widget.index,
-      selectedItemColor: AppColors.primaryIconColor,// Color for selected icon and label
-      unselectedItemColor: AppColors.secondaryIconColor, // Color for unselected icon and label
+      selectedItemColor:
+          AppColors.primaryIconColor, // Color for selected icon and label
+      unselectedItemColor:
+          AppColors.secondaryIconColor, // Color for unselected icon and label
       selectedLabelStyle: TextStyle(
         color: AppColors.primaryIconColor, // Color for selected label
         fontSize: AppSizes.tertiaryFontSize, // Font size for selected label
@@ -34,16 +39,16 @@ class _MyNavBarState extends State<MyNavBar> {
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.checklist),
-          label: 'Category',
+          icon: Icon(Icons.explore),
+          label: 'Explore',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.edit),
-          label: 'Documents',
+          icon: Icon(Icons.miscellaneous_services),
+          label: 'Services',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.save),
-          label: 'Saved',
+          icon: Icon(Icons.add_circle),
+          label: 'post',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
@@ -57,8 +62,16 @@ class _MyNavBarState extends State<MyNavBar> {
           }
           switch (index) {
             case 0:
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => const HomeScreen()));
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation1, animation2) =>
+                      const HomeScreen(),
+                  transitionDuration: Duration.zero, // No transition duration
+                  reverseTransitionDuration:
+                      Duration.zero, // No reverse transition duration
+                ),
+              );
               break;
             case 1:
               // Navigator.push(
@@ -79,10 +92,16 @@ class _MyNavBarState extends State<MyNavBar> {
               //         builder: (context) => const SavedTenders()));
               break;
             case 4:
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) => const ProfileScreen()));
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation1, animation2) =>
+                      const ProfileScreen(),
+                  transitionDuration: Duration.zero, // No transition duration
+                  reverseTransitionDuration:
+                      Duration.zero, // No reverse transition duration
+                ),
+              );
               break;
           }
         }

@@ -18,7 +18,7 @@ class MyAppBar extends StatelessWidget {
         Row(
           children: [
             IconButton(
-            icon: const Icon(Icons.shopping_cart_checkout, color: AppColors.primaryIconColor),
+            icon: const Icon(Icons.favorite_border_outlined, color: AppColors.primaryIconColor),
             onPressed: () {
               // Handle search action
             },
