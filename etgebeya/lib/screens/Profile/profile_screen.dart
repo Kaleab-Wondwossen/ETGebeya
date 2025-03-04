@@ -1,3 +1,4 @@
+import 'package:etgebeya/screens/login.dart';
 import 'package:etgebeya/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -129,7 +130,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: const UtilitiesContainer(),
                 ),
                 GestureDetector(
-                  onTap: (){},
+                  onTap: (){
+                     Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation1, animation2) =>
+                      const LogIn(),
+                  transitionDuration: Duration.zero, // No transition duration
+                  reverseTransitionDuration:
+                      Duration.zero, // No reverse transition duration
+                ),
+              );
+                  },
                   child: Container(
                     height: AppSizes.mediumGap * 2.5,
                     width: AppSizes.largeGap * 10,

@@ -1,5 +1,5 @@
+import 'package:etgebeya/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../measures/size_consts.dart';
 import '../../widgets/settings_container.dart';
@@ -17,7 +17,7 @@ class SettingsPage extends StatelessWidget {
           },
           icon: const Icon(
             Icons.arrow_circle_left_rounded,
-            color:  Color.fromRGBO(26, 46, 107, 1),
+            color:  AppColors.primaryIconColor,
           ),
           iconSize: AppSizes.largeIconSize,
         ),
@@ -25,7 +25,7 @@ class SettingsPage extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(0, 0, AppSizes.largeGap * 5.5, 0),
           child: Text(
             'Settings',
-            style: GoogleFonts.acme(
+            style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: AppSizes.primaryFontSize),
           ),

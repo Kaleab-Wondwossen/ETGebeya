@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../measures/size_consts.dart';
+import '../utils/colors.dart';
 
 
 class SettingsContainer extends StatelessWidget {
@@ -10,7 +11,7 @@ class SettingsContainer extends StatelessWidget {
   const SettingsContainer(
       {super.key,
       this.name = "Notification",
-      this.icon = const Icon(Icons.notification_add, color: Color.fromRGBO(26, 46, 107, 1),),
+      this.icon = const  Icon(Icons.notification_add, color: AppColors.primaryIconColor,),
       this.color = const Color.fromRGBO(236, 236, 236,1)});
 
   @override

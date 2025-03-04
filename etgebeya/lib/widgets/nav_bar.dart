@@ -1,4 +1,6 @@
 import 'package:etgebeya/measures/size_consts.dart';
+import 'package:etgebeya/screens/discover_screen.dart';
+import 'package:etgebeya/screens/login.dart';
 import 'package:etgebeya/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -74,10 +76,16 @@ class _MyNavBarState extends State<MyNavBar> {
               );
               break;
             case 1:
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) => const CategoriesPage()));
+               Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation1, animation2) =>
+                      const DiscoverScreen(),
+                  transitionDuration: Duration.zero, // No transition duration
+                  reverseTransitionDuration:
+                      Duration.zero, // No reverse transition duration
+                ),
+              );
               break;
             case 2:
               // Navigator.push(
@@ -86,10 +94,16 @@ class _MyNavBarState extends State<MyNavBar> {
               //         builder: (context) => const TenderDocument()));
               break;
             case 3:
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) => const SavedTenders()));
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation1, animation2) =>
+                      const LogIn(),
+                  transitionDuration: Duration.zero, // No transition duration
+                  reverseTransitionDuration:
+                      Duration.zero, // No reverse transition duration
+                ),
+              );
               break;
             case 4:
               Navigator.push(
