@@ -1,6 +1,7 @@
 import 'package:etgebeya/measures/size_consts.dart';
 import 'package:etgebeya/screens/discover_screen.dart';
 import 'package:etgebeya/screens/login.dart';
+import 'package:etgebeya/screens/services.dart';
 import 'package:etgebeya/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -88,10 +89,16 @@ class _MyNavBarState extends State<MyNavBar> {
               );
               break;
             case 2:
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) => const TenderDocument()));
+               Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation1, animation2) =>
+                      const ServicesScreen(),
+                  transitionDuration: Duration.zero, // No transition duration
+                  reverseTransitionDuration:
+                      Duration.zero, // No reverse transition duration
+                ),
+              );
               break;
             case 3:
               Navigator.push(
