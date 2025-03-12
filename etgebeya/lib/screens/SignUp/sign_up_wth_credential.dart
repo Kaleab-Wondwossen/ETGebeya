@@ -101,65 +101,6 @@ class _SignUpWithCredentialState extends State<SignUpWithCredential> {
                 ),
               ),
               SizedBox(height: AppSizes.smallGap * 1.5),
-              Padding(
-                padding: EdgeInsets.fromLTRB(
-                  AppSizes.mediumGap, 0, AppSizes.mediumGap, 0),
-                child: Row(
-                  children: [
-                    // Left Divider
-                    const Expanded(
-                      child: Divider(
-                        color: Colors.black, // Line color
-                        thickness: 1, // Line thickness
-                        endIndent: 10, // Spacing between the line and text
-                      ),
-                    ),
-                    // OR Text
-                    Text(
-                      'OR',
-                      style: TextStyle(
-                        fontSize: AppSizes.secondaryFontSize,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    // Right Divider
-                    const Expanded(
-                      child: Divider(
-                        color: Colors.black, // Line color
-                        thickness: 1, // Line thickness
-                        indent: 10, // Spacing between the line and text
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: AppSizes.smallGap * 1.5),
-              SizedBox(
-                height: AppSizes.largeGap * 1.5, // Set a fixed height
-                child: GestureDetector(
-                  onTap: () {
-                    // Handle Apple sign-up
-                  },
-                  child: const MyContainer(
-                    path: "images/apple_logo.png",
-                    name: "Sign Up with Apple",
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: AppSizes.largeGap * 1.5, // Set a fixed height
-                child: GestureDetector(
-                  onTap: () {
-                    // Handle Google sign-up
-                  },
-                  child: const MyContainer(
-                    path: "images/google_icon.png",
-                    name: "Sign Up with Google",
-                  ),
-                ),
-              ),
-              SizedBox(height: AppSizes.smallGap * 1.5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
