@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:etgebeya/measures/size_consts.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -6,6 +7,7 @@ class MyCarouselSlider extends StatefulWidget {
   const MyCarouselSlider({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _MyCarouselSliderState createState() => _MyCarouselSliderState();
 }
 
@@ -74,7 +76,7 @@ class _MyCarouselSliderState extends State<MyCarouselSlider> {
     return Column(
       children: [
         SizedBox(
-          height: 200, // Adjust height as needed
+          height: AppSizes.largeGap * 6, // Adjust height as needed
           width: double.infinity,
           child: PageView.builder(
             controller: _controller,
@@ -123,9 +125,10 @@ class _MyCarouselSliderState extends State<MyCarouselSlider> {
         // Handle tap on the image (e.g., open the URL)
       },
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+        padding:
+            EdgeInsets.fromLTRB(AppSizes.smallGap, 5, AppSizes.smallGap, 5),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(30.0),
+          borderRadius: BorderRadius.circular(AppSizes.smallGap),
           child: Image.asset(
             imagePath,
             fit: BoxFit.cover,

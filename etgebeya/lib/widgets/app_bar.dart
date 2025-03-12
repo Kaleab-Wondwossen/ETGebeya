@@ -11,7 +11,7 @@ class MyAppBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Expanded(child: Image.asset('images/logo.png', width: AppSizes.smallGap*1.5, height: AppSizes.smallGap*2.5,)),
+        Expanded(child: Image.asset('images/logoX.png', width: AppSizes.smallGap*1.5, height: AppSizes.smallGap*2.5,)),
         SizedBox(
           width: AppSizes.largeGap*5.5,
         ),

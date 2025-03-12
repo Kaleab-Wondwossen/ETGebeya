@@ -6,9 +6,7 @@ import 'package:etgebeya/widgets/categories.dart';
 import 'package:etgebeya/widgets/nav_bar.dart';
 import 'package:etgebeya/widgets/product_card.dart';
 import 'package:etgebeya/widgets/search_bar.dart';
-import 'package:etgebeya/widgets/text_with_icon_tab.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -23,6 +21,8 @@ class HomeScreen extends StatelessWidget {
             children: [
               // App Bar
               const MyAppBar(),
+              // Category
+              const MyCategories(),
               // Search Bar
               const MySearchBar(),
               // Carousel Slider
@@ -30,19 +30,17 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 height: AppSizes.smallGap,
               ),
-              // Category
-              MyCategories(),
-              SizedBox(
-                height: AppSizes.smallGap,
-              ),
-              TextWithIcon(
-                  text: "Recent Products", icon: Icons.filter_list_alt),
+              // SizedBox(
+              //   height: AppSizes.smallGap,
+              // ),
+              // TextWithIcon(
+              //     text: "Recent Products", icon: Icons.filter_list_alt),
               SizedBox(
                 height: AppSizes.smallGap,
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                    AppSizes.smallGap * 1.3, 0, AppSizes.smallGap * 1.3, 0),
+                    AppSizes.smallGap , 0, AppSizes.smallGap, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

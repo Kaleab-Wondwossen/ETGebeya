@@ -1,6 +1,5 @@
 // ignore_for_file: library_private_types_in_public_api
 
-
 import 'dart:io';
 
 import 'package:etgebeya/measures/size_consts.dart';
@@ -23,6 +22,7 @@ class _ProductPostFormState extends State<ProductPostForm> {
   final _quantityController = TextEditingController();
   final _brandController = TextEditingController();
   String? _selectedCategory;
+  String? _selectedCity;
   final List<String> _selectedColors = [];
   final List<String> _selectedSizes = [];
   final ImagePicker _picker = ImagePicker();
@@ -39,12 +39,34 @@ class _ProductPostFormState extends State<ProductPostForm> {
     }
   }
 
+  final List<String> _cities = [
+    'Adama',
+    'Addis Ababa',
+    'Bahir Dar',
+    'Dessie',
+    'Dire Dawa',
+    'Gambella',
+    'Harar',
+    'Jijiga',
+    'Jimma',
+    'Lalibela',
+    'Mekelle',
+    'Nekemte',
+    'Semera',
+    'Shashamane',
+    'Tigray',
+    'Wenchi',
+    'Yedebub',
+    'Zinjibar',
+  ];
+
   final List<String> _categories = [
+    'Car',
     'Electronics',
-    'Clothing',
-    'Home & Kitchen',
-    'Sports',
-    'Books',
+    'Fashion',
+    'Furniture',
+    'House',
+    'Wanted/Needed Product/Services',
     'Others',
   ];
 
@@ -73,7 +95,60 @@ class _ProductPostFormState extends State<ProductPostForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            
+            // Address of the Seller
+            DropdownButtonFormField<String>(
+              value: _selectedCity,
+              decoration: const InputDecoration(
+                labelText: 'City',
+                border: OutlineInputBorder(),
+              ),
+              items: _cities.map((city) {
+                return DropdownMenuItem(
+                  value: city,
+                  child: Text(city),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  _selectedCity = value;
+                });
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please select a category';
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: AppSizes.smallGap),
+
+            // Category Dropdown
+            DropdownButtonFormField<String>(
+              value: _selectedCategory,
+              decoration: const InputDecoration(
+                labelText: 'Category',
+                border: OutlineInputBorder(),
+              ),
+              items: _categories.map((category) {
+                return DropdownMenuItem(
+                  value: category,
+                  child: Text(category),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  _selectedCategory = value;
+                });
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please select a category';
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: AppSizes.smallGap),
+
             // Product Name
             TextFormField(
               controller: _productNameController,
@@ -92,7 +167,7 @@ class _ProductPostFormState extends State<ProductPostForm> {
 
             //Product Image
             Padding(
-              padding:  EdgeInsets.all(AppSizes.smallGap),
+              padding: EdgeInsets.all(AppSizes.smallGap),
               child: Column(
                 children: [
                   // Image Upload Field
@@ -106,7 +181,8 @@ class _ProductPostFormState extends State<ProductPostForm> {
                       padding: EdgeInsets.all(AppSizes.smallGap),
                       child: Row(
                         children: [
-                          const Icon(Icons.image, color: AppColors.secondaryIconColor),
+                          const Icon(Icons.image,
+                              color: AppColors.secondaryIconColor),
                           SizedBox(width: AppSizes.smallGap),
                           Expanded(
                             child: Text(
@@ -129,7 +205,7 @@ class _ProductPostFormState extends State<ProductPostForm> {
                   // Display Selected Image
                   if (_imageFile != null)
                     Container(
-                      height: AppSizes.largeGap*10,
+                      height: AppSizes.largeGap * 10,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(AppSizes.largeGap),
@@ -201,33 +277,6 @@ class _ProductPostFormState extends State<ProductPostForm> {
             ),
             SizedBox(height: AppSizes.smallGap),
 
-            // Category Dropdown
-            DropdownButtonFormField<String>(
-              value: _selectedCategory,
-              decoration: const InputDecoration(
-                labelText: 'Category',
-                border: OutlineInputBorder(),
-              ),
-              items: _categories.map((category) {
-                return DropdownMenuItem(
-                  value: category,
-                  child: Text(category),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _selectedCategory = value;
-                });
-              },
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please select a category';
-                }
-                return null;
-              },
-            ),
-            SizedBox(height: AppSizes.smallGap),
-
             // Brand (Optional)
             TextFormField(
               controller: _brandController,
@@ -282,8 +331,8 @@ class _ProductPostFormState extends State<ProductPostForm> {
 
             // Submit Button
             Center(
-              child: ElevatedButton(
-                onPressed: () {
+              child: GestureDetector(
+                onTap: () {
                   if (_formKey.currentState!.validate()) {
                     // Handle form submission
                     final productData = {
@@ -300,10 +349,22 @@ class _ProductPostFormState extends State<ProductPostForm> {
                     // You can now send this data to your backend or database
                   }
                 },
-                child: const Text('Post Product', style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primaryIconColor
-                ),),
+                child: Container(
+                  width: double.infinity,
+                  height: AppSizes.largeGap,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryIconColor,
+                    borderRadius: BorderRadius.circular(AppSizes.smallGap),
+                    border: Border.all(color: AppColors.primaryIconColor),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'Post Product',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
