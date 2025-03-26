@@ -7,17 +7,17 @@ class ApartmentDetailHeader extends StatelessWidget {
     super.key,
     required this.imageUrl,
     required this.apartmentName,
-    required this.location,
-    required this.bedrooms,
-    required this.bathrooms,
+     this.location,
+     this.bedrooms,
+     this.bathrooms,
     required this.rating,
   });
 
   final String apartmentName;
-  final int bathrooms;
-  final int bedrooms;
+  final int? bathrooms;
+  final int? bedrooms;
   final String imageUrl;
-  final String location;
+  final String? location;
   final double rating;
 
   @override
@@ -37,7 +37,10 @@ class ApartmentDetailHeader extends StatelessWidget {
           top: AppSizes.largeGap * 2,
           left: AppSizes.largeGap * .5,
           child: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
+            icon: Container(decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.6),
+              borderRadius: BorderRadius.circular(AppSizes.smallGap ),
+            ), child: Icon(Icons.arrow_back_rounded, color: Colors.black, size: AppSizes.largeGap,)),
             onPressed: () {
               Navigator.pop(context); // Back button functionality
             },
@@ -69,46 +72,67 @@ class ApartmentDetailHeader extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                apartmentName,
-                style: const TextStyle(
-                  fontSize: 24.0,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+              Container(
+                width: AppSizes.largeGap*5,
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.6),
+                  borderRadius: BorderRadius.circular(AppSizes.smallGap * .5),
+                ),
+                child: Center(
+                  child: Text(
+                    apartmentName,
+                    style: const TextStyle(
+                      fontSize: 24.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: AppSizes.smallGap),
-              Row(
-                children: [
-                  const Icon(Icons.location_on, color: Colors.red),
-                  SizedBox(width: AppSizes.smallGap * .5),
-                  Text(
-                    location,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: AppSizes.secondaryFontSize,
+              Center(
+                child: Container(
+                  width: AppSizes.largeGap * 10,
+                  decoration: BoxDecoration(
+                    color : Colors.black.withOpacity(0.6),
+                    //color: AppColors.primaryIconColor,
+                    borderRadius: BorderRadius.circular(AppSizes.smallGap * .5),
+                  ),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        const Icon(Icons.location_on, color: Colors.red),
+                        SizedBox(width: AppSizes.smallGap * .5),
+                        Text(
+                          location!,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: AppSizes.secondaryFontSize,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
               SizedBox(width: AppSizes.smallGap * .5),
-              Row(
-                children: [
-                  const Icon(Icons.bed, color: Colors.white),
-                  SizedBox(width: AppSizes.smallGap*.5),
-                  Text(
-                    '$bedrooms ⭐️',
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  SizedBox(width: AppSizes.secondaryFontSize),
-                  const Icon(Icons.bathtub, color: Colors.white),
-                  SizedBox(width: AppSizes.smallGap*.5),
-                  Text(
-                    '$bathrooms 👁️‍🗨️',
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     const Icon(Icons.bed, color: Colors.white),
+              //     SizedBox(width: AppSizes.smallGap*.5),
+              //     Text(
+              //       '$bedrooms ⭐️',
+              //       style: const TextStyle(color: Colors.white),
+              //     ),
+              //     SizedBox(width: AppSizes.secondaryFontSize),
+              //     const Icon(Icons.bathtub, color: Colors.white),
+              //     SizedBox(width: AppSizes.smallGap*.5),
+              //     Text(
+              //       '$bathrooms 👁️‍🗨️',
+              //       style: const TextStyle(color: Colors.white),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),

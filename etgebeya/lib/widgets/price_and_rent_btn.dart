@@ -15,13 +15,18 @@ class PriceAndRentButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            'Price: \$${price.toStringAsFixed(0)}',
-            style: TextStyle(
-              fontSize:AppSizes.secondaryFontSize,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primaryIconColor,
+         ElevatedButton(
+            onPressed: () {
+              // Handle rent now action
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primaryIconColor, // Dark blue button
+              padding:  EdgeInsets.symmetric(horizontal: AppSizes.largeGap*1.0, vertical: AppSizes.largeGap*.4),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppSizes.largeGap*.2),
+              ),
             ),
+            child: Text('Call Seller', style: TextStyle(fontSize:AppSizes.largeGap*.5, color: Colors.white)),
           ),
           ElevatedButton(
             onPressed: () {
@@ -34,7 +39,7 @@ class PriceAndRentButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(AppSizes.largeGap*.2),
               ),
             ),
-            child: Text('Contact Now', style: TextStyle(fontSize:AppSizes.largeGap*.5, color: Colors.white)),
+            child: Text('Message Seller', style: TextStyle(fontSize:AppSizes.largeGap*.5, color: Colors.white)),
           ),
         ],
       ),

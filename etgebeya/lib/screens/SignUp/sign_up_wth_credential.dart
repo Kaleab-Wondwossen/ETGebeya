@@ -1,3 +1,4 @@
+import 'package:etgebeya/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -29,13 +30,13 @@ class _SignUpWithCredentialState extends State<SignUpWithCredential> {
           child: Column(
             children: [
               Container(
-                height: AppSizes.largeGap * 12,
+                height: AppSizes.largeGap * 11.55,
                 width: AppSizes.largeGap * 14,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: const Color.fromRGBO(247, 247, 247, 1),
                 ),
-                child: Image.asset("images/logo.png"),
+                child: Image.asset("images/logomain.png"),
               ),
               SizedBox(height: AppSizes.smallGap),
               Row(
@@ -51,11 +52,11 @@ class _SignUpWithCredentialState extends State<SignUpWithCredential> {
                   ),
                   SizedBox(width: AppSizes.smallGap * 1),
                   Text(
-                    "ETGebeya",
+                    "KelalGebeya",
                     style: GoogleFonts.newRocker(
                       fontSize: AppSizes.primaryFontSize * 1.2,
                       fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 26, 46, 107),
+                      color: AppColors.primaryIconColor,
                     ),
                   ),
                 ],
@@ -128,7 +129,7 @@ class _SignUpWithCredentialState extends State<SignUpWithCredential> {
                       "Log in",
                       style: GoogleFonts.acme(
                         fontSize: AppSizes.tertiaryFontSize,
-                        color: const Color.fromRGBO(26, 46, 107, 1),
+                        color: AppColors.primaryIconColor,
                         decoration: TextDecoration.underline,
                       ),
                     ),

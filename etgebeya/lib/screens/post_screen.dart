@@ -17,7 +17,7 @@ class PostItems extends StatelessWidget {
           ],
         ),
       )),
-      bottomNavigationBar: MyNavBar(index: 3),
+      bottomNavigationBar: MyNavBar(index: 2),
     );
   }
 }

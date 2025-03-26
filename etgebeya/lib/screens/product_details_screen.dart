@@ -21,8 +21,8 @@ class ApartmentDetailScreen extends StatelessWidget {
               imageUrl: 'images/airpods.png',
               apartmentName: 'AirPods Pro 2',
               location: 'Bole Alemnesh Plaza, Addis Ababa',
-              bedrooms: 3,
-              bathrooms: 2,
+              //bedrooms: 3,
+              //bathrooms: 2,
               rating: 4.5,
             ),
             ApartmentDescription(

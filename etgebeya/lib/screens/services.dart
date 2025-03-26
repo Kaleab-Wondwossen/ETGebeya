@@ -36,10 +36,10 @@ class ServicesScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         LoanCard(
-                          title: 'Job Seeker',
+                          title: 'Worker Onboard',
                           description:
                               'Connecting Talent with Opportunity: Where Recruiters Meet Ready Candidates!.',
-                          buttonText: 'Find',
+                          buttonText: 'Explore',
                           onPressed: () {
                            Navigator.push(
                               context,
@@ -56,7 +56,7 @@ class ServicesScreen extends StatelessWidget {
                           },
                         ),
                         LoanCard(
-                          title: 'Recruiter',
+                          title: 'Recruiter Onboard',
                           description:
                               'Your Next Career Move Starts Here: Empowering Job Seekers, One Perfect Match at a Time!',
                           buttonText: 'Explore',

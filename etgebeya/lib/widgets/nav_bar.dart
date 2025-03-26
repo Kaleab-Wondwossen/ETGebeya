@@ -1,8 +1,8 @@
 import 'package:etgebeya/measures/size_consts.dart';
-import 'package:etgebeya/screens/discover_screen.dart';
 import 'package:etgebeya/screens/login.dart';
 import 'package:etgebeya/screens/services.dart';
 import 'package:etgebeya/utils/colors.dart';
+import 'package:etgebeya/widgets/language_pop_up.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/Profile/profile_screen.dart';
@@ -22,7 +22,10 @@ class _MyNavBarState extends State<MyNavBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: Colors.black,
       currentIndex: widget.index,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
       selectedItemColor:
           AppColors.primaryIconColor, // Color for selected icon and label
       unselectedItemColor:
@@ -38,25 +41,22 @@ class _MyNavBarState extends State<MyNavBar> {
       ),
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home_rounded),
-          label: 'Home',
-        ),
+            icon: Icon(Icons.home_rounded), label: 'Home', tooltip: "Home"),
+        // BottomNavigationBarItem(
+        //   icon: Icon(Icons.explore),
+        //   label: 'Explore',
+        //   tooltip: "Discover"
+        // ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.explore),
-          label: 'Explore',
-        ),
+            icon: Icon(Icons.miscellaneous_services),
+            label: 'Services',
+            tooltip: "Services"),
         BottomNavigationBarItem(
-          icon: Icon(Icons.miscellaneous_services),
-          label: 'Services',
-        ),
+            icon: Icon(Icons.add_circle), label: 'post', tooltip: "Post"),
         BottomNavigationBarItem(
-          icon: Icon(Icons.add_circle),
-          label: 'post',
-        ),
+            icon: Icon(Icons.person), label: 'Profile', tooltip: "Profile"),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
+            icon: Icon(Icons.translate), label: 'English', tooltip: "English"),
       ],
       onTap: (index) {
         if (widget.index != index) {
@@ -77,19 +77,7 @@ class _MyNavBarState extends State<MyNavBar> {
               );
               break;
             case 1:
-               Navigator.push(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation1, animation2) =>
-                      const DiscoverScreen(),
-                  transitionDuration: Duration.zero, // No transition duration
-                  reverseTransitionDuration:
-                      Duration.zero, // No reverse transition duration
-                ),
-              );
-              break;
-            case 2:
-               Navigator.push(
+              Navigator.push(
                 context,
                 PageRouteBuilder(
                   pageBuilder: (context, animation1, animation2) =>
@@ -100,7 +88,7 @@ class _MyNavBarState extends State<MyNavBar> {
                 ),
               );
               break;
-            case 3:
+            case 2:
               Navigator.push(
                 context,
                 PageRouteBuilder(
@@ -112,7 +100,7 @@ class _MyNavBarState extends State<MyNavBar> {
                 ),
               );
               break;
-            case 4:
+            case 3:
               Navigator.push(
                 context,
                 PageRouteBuilder(
@@ -121,6 +109,22 @@ class _MyNavBarState extends State<MyNavBar> {
                   transitionDuration: Duration.zero, // No transition duration
                   reverseTransitionDuration:
                       Duration.zero, // No reverse transition duration
+                ),
+              );
+              break;
+            case 4:
+              showDialog(
+                context: context,
+                barrierColor: Colors.transparent, // No dark overlay
+                builder: (context) => LanguagePopup(
+                  onLanguageSelected: (selectedLanguage) {
+                    setState(() {
+                      // Handle the selected language here
+                      String code = selectedLanguage;
+                      index = 4;
+                      print(code);
+                    });
+                  },
                 ),
               );
               break;

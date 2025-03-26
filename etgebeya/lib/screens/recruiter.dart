@@ -18,7 +18,7 @@ class RecruiterScreen extends StatelessWidget {
           ],
         ),
       )),
-      bottomNavigationBar: MyNavBar(index: 2),
+      bottomNavigationBar: MyNavBar(index: 1),
     );
   }
 }

@@ -8,6 +8,8 @@ import 'package:etgebeya/widgets/product_card.dart';
 import 'package:etgebeya/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 
+import 'discover_screen.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -24,7 +26,21 @@ class HomeScreen extends StatelessWidget {
               // Category
               const MyCategories(),
               // Search Bar
-              const MySearchBar(),
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) =>
+                            const DiscoverScreen(),
+                        transitionDuration:
+                            Duration.zero, // No transition duration
+                        reverseTransitionDuration:
+                            Duration.zero, // No reverse transition duration
+                      ),
+                    );
+                  },
+                  child: const MySearchBar()),
               // Carousel Slider
               const MyCarouselSlider(),
               SizedBox(
@@ -40,7 +56,7 @@ class HomeScreen extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                    AppSizes.smallGap , 0, AppSizes.smallGap, 0),
+                    AppSizes.smallGap, 0, AppSizes.smallGap, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
