@@ -630,23 +630,26 @@ class _ProductPostFormState extends State<ProductPostForm> {
             // ),
             Center(
                 child: GestureDetector(
-              onTap: () {
-                if (_formKey.currentState!.validate()) {
-                  // Handle form submission
-                  final productData = {
-                    'name': _productNameController.text,
-                    'description': _productDescriptionController.text,
-                    'price': double.parse(_priceController.text),
-                    'quantity': int.parse(_quantityController.text),
-                    'category': _selectedCategory,
-                    'brand': _brandController.text,
-                    'colors': _selectedColors,
-                    'sizes': _selectedSizes,
-                  };
-                  print('Product Data: $productData');
-                  // You can now send this data to your backend or database
-                }
-              },
+               onTap: _submitForm, 
+              //
+              //() {
+              //   // if (_formKey.currentState!.validate()) {
+              //   //   // Handle form submission
+              //   //   final productData = {
+              //   //     'name': _productNameController.text,
+              //   //     'description': _productDescriptionController.text,
+              //   //     'price': double.parse(_priceController.text),
+              //   //     'quantity': int.parse(_quantityController.text),
+              //   //     'category': _selectedCategory,
+              //   //     'brand': _brandController.text,
+              //   //     'colors': _selectedColors,
+              //   //     'sizes': _selectedSizes,
+              //   //   };
+              //   //   print('Product Data: $productData');
+              //   //   // You can now send this data to your backend or database
+              //   // }
+
+              // },
               child: Container(
                 width: double.infinity,
                 height: AppSizes.largeGap,
