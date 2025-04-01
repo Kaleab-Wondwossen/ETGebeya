@@ -1,11 +1,9 @@
-// ignore_for_file: library_private_types_in_public_api
-
-import 'dart:io';
-
-import 'package:etgebeya/measures/size_consts.dart';
-import 'package:etgebeya/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
+import '../measures/size_consts.dart';
+import '../utils/colors.dart';
 
 class ProductPostForm extends StatefulWidget {
   const ProductPostForm({super.key});
@@ -26,19 +24,17 @@ class _ProductPostFormState extends State<ProductPostForm> {
   final List<String> _selectedColors = [];
   final List<String> _selectedSizes = [];
   final ImagePicker _picker = ImagePicker();
-  File? _imageFile; // To store the selected image
+  File? _imageFile;
 
-  Future<void> _pickImage() async {
-    final XFile? pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery);
+  // Conditional fields
+  String? _selectedCarBrand;
+  String? _selectedCarBodyType;
+  String? _selectedElectronicsType;
+  String? _selectedFashionGender;
+  String? _selectedFurnitureType;
+  String? _selectedHouseType;
 
-    if (pickedFile != null) {
-      setState(() {
-        _imageFile = File(pickedFile.path); // Convert XFile to File
-      });
-    }
-  }
-
+  // Options
   final List<String> _cities = [
     'Adama',
     'Addis Ababa',
@@ -70,32 +66,353 @@ class _ProductPostFormState extends State<ProductPostForm> {
     'Others',
   ];
 
-  final List<String> _colors = [
-    'Red',
-    'Blue',
-    'Green',
-    'Black',
-    'White',
+  final List<String> _carBrands = [
+    'Toyota',
+    'Hyundai',
+    'Honda',
+    'BMW',
+    'Tesla'
   ];
+  final List<String> _carBodyTypes = [
+    'SUV',
+    'Sedan',
+    'Compact',
+    'Hatchback',
+    'Truck'
+  ];
+  final List<String> _electronicsTypes = [
+    'Phone',
+    'Laptop',
+    'Tablet',
+    'TV',
+    'Other'
+  ];
+  final List<String> _fashionGenders = ['Male', 'Female', 'Kids', 'Unisex'];
+  final List<String> _furnitureTypes = [
+    'Used',
+    'Brand New',
+    'Kitchen',
+    'Salon',
+    'Bedroom',
+    'Office'
+  ];
+  final List<String> _houseTypes = [
+    'Leased',
+    'Rented',
+    'Buying',
+    'Warehouse',
+    'Villa',
+    'Bare Land'
+  ];
+  final List<String> _colors = ['Red', 'Blue', 'Green', 'Black', 'White'];
+  final List<String> _sizes = ['S', 'M', 'L', 'XL', 'XXL'];
 
-  final List<String> _sizes = [
-    'S',
-    'M',
-    'L',
-    'XL',
-    'XXL',
-  ];
+  Future<void> _pickImage() async {
+    final XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = File(pickedFile.path);
+      });
+    }
+  }
+
+  void _resetConditionalFields() {
+    setState(() {
+      _selectedCarBrand = null;
+      _selectedCarBodyType = null;
+      _selectedElectronicsType = null;
+      _selectedFashionGender = null;
+      _selectedFurnitureType = null;
+      _selectedHouseType = null;
+    });
+  }
+
+  Widget _buildConditionalFields() {
+    switch (_selectedCategory) {
+      case 'Car':
+        return Column(
+          children: [
+            DropdownButtonFormField<String>(
+              value: _selectedCarBrand,
+              decoration: const InputDecoration(
+                labelText: 'Car Brand',
+                border: OutlineInputBorder(),
+              ),
+              items: _carBrands.map((brand) {
+                return DropdownMenuItem(
+                  value: brand,
+                  child: Text(brand),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  _selectedCarBrand = value;
+                  _selectedCarBodyType =
+                      null; // Reset body type when brand changes
+                });
+              },
+              validator: (value) =>
+                  value == null ? 'Please select a car brand' : null,
+            ),
+            if (_selectedCarBrand != null) ...[
+              const SizedBox(height: 16),
+              DropdownButtonFormField<String>(
+                value: _selectedCarBodyType,
+                decoration: const InputDecoration(
+                  labelText: 'Body Type',
+                  border: OutlineInputBorder(),
+                ),
+                items: _carBodyTypes.map((type) {
+                  return DropdownMenuItem(
+                    value: type,
+                    child: Text(type),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedCarBodyType = value;
+                  });
+                },
+                validator: (value) =>
+                    value == null ? 'Please select a body type' : null,
+              ),
+            ],
+          ],
+        );
+
+      case 'Electronics':
+        return DropdownButtonFormField<String>(
+          value: _selectedElectronicsType,
+          decoration: const InputDecoration(
+            labelText: 'Electronics Type',
+            border: OutlineInputBorder(),
+          ),
+          items: _electronicsTypes.map((type) {
+            return DropdownMenuItem(
+              value: type,
+              child: Text(type),
+            );
+          }).toList(),
+          onChanged: (value) {
+            setState(() {
+              _selectedElectronicsType = value;
+            });
+          },
+          validator: (value) =>
+              value == null ? 'Please select electronics type' : null,
+        );
+
+      case 'Fashion':
+        return Column(
+          children: [
+            DropdownButtonFormField<String>(
+              value: _selectedFashionGender,
+              decoration: const InputDecoration(
+                labelText: 'Gender',
+                border: OutlineInputBorder(),
+              ),
+              items: _fashionGenders.map((gender) {
+                return DropdownMenuItem(
+                  value: gender,
+                  child: Text(gender),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  _selectedFashionGender = value;
+                });
+              },
+              validator: (value) =>
+                  value == null ? 'Please select gender' : null,
+            ),
+            if (_selectedFashionGender != null) ...[
+              const SizedBox(height: 16),
+              const Text('Size Options (Required for Fashion)'),
+              Wrap(
+                children: _sizes.map((size) {
+                  return FilterChip(
+                    label: Text(size),
+                    selected: _selectedSizes.contains(size),
+                    onSelected: (selected) {
+                      setState(() {
+                        if (selected) {
+                          _selectedSizes.add(size);
+                        } else {
+                          _selectedSizes.remove(size);
+                        }
+                      });
+                    },
+                  );
+                }).toList(),
+              ),
+            ],
+          ],
+        );
+
+      case 'Furniture':
+        return DropdownButtonFormField<String>(
+          value: _selectedFurnitureType,
+          decoration: const InputDecoration(
+            labelText: 'Furniture Type',
+            border: OutlineInputBorder(),
+          ),
+          items: _furnitureTypes.map((type) {
+            return DropdownMenuItem(
+              value: type,
+              child: Text(type),
+            );
+          }).toList(),
+          onChanged: (value) {
+            setState(() {
+              _selectedFurnitureType = value;
+            });
+          },
+          validator: (value) =>
+              value == null ? 'Please select furniture type' : null,
+        );
+
+      case 'House':
+        return DropdownButtonFormField<String>(
+          value: _selectedHouseType,
+          decoration: const InputDecoration(
+            labelText: 'House Type',
+            border: OutlineInputBorder(),
+          ),
+          items: _houseTypes.map((type) {
+            return DropdownMenuItem(
+              value: type,
+              child: Text(type),
+            );
+          }).toList(),
+          onChanged: (value) {
+            setState(() {
+              _selectedHouseType = value;
+            });
+          },
+          validator: (value) =>
+              value == null ? 'Please select house type' : null,
+        );
+
+      case 'Wanted/Needed Product/Services':
+        return TextFormField(
+          controller: _productDescriptionController,
+          decoration: const InputDecoration(
+            labelText: 'Detailed Description',
+            border: OutlineInputBorder(),
+            hintText: 'Describe what you are looking for in detail',
+          ),
+          maxLines: 4,
+          validator: (value) => value == null || value.isEmpty
+              ? 'Please describe what you need'
+              : null,
+        );
+
+      case 'Others':
+        return TextFormField(
+          controller: _productDescriptionController,
+          decoration: const InputDecoration(
+            labelText: 'Additional Details',
+            border: OutlineInputBorder(),
+            hintText: 'Provide any additional details about your product',
+          ),
+          maxLines: 3,
+        );
+
+      default:
+        return Container();
+    }
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      // Prepare the data structure
+      final productData = {
+        'name': _productNameController.text,
+        'description': _productDescriptionController.text,
+        'price': double.parse(_priceController.text),
+        'quantity': int.parse(_quantityController.text),
+        'category': _selectedCategory,
+        'city': _selectedCity,
+        'brand': _brandController.text,
+        'colors': _selectedColors,
+        'sizes': _selectedSizes,
+        'imagePath': _imageFile?.path,
+
+        // Conditional data
+        'details': {
+          if (_selectedCategory == 'Car') ...{
+            'brand': _selectedCarBrand,
+            'bodyType': _selectedCarBodyType,
+          },
+          if (_selectedCategory == 'Electronics') ...{
+            'type': _selectedElectronicsType,
+          },
+          if (_selectedCategory == 'Fashion') ...{
+            'gender': _selectedFashionGender,
+            'sizes': _selectedSizes,
+          },
+          if (_selectedCategory == 'Furniture') ...{
+            'type': _selectedFurnitureType,
+          },
+          if (_selectedCategory == 'House') ...{
+            'type': _selectedHouseType,
+          },
+        },
+      };
+
+      // Show the collected data (in a real app, you'd send this to your backend)
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Product Submitted'),
+          content: SingleChildScrollView(
+            child: Text(_formatProductData(productData)),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  String _formatProductData(Map<String, dynamic> data) {
+    String result = 'Product Name: ${data['name']}\n';
+    result += 'Category: ${data['category']}\n';
+    result += 'Price: \$${data['price']}\n';
+    result += 'Quantity: ${data['quantity']}\n';
+    result += 'City: ${data['city']}\n';
+
+    if (data['details'] != null) {
+      result += '\nDetails:\n';
+      data['details'].forEach((key, value) {
+        if (value != null) {
+          if (value is List) {
+            result += '- $key: ${value.join(', ')}\n';
+          } else {
+            result += '- $key: $value\n';
+          }
+        }
+      });
+    }
+
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(AppSizes.smallGap),
+      padding: const EdgeInsets.all(16),
       child: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Address of the Seller
+            // City Dropdown
             DropdownButtonFormField<String>(
               value: _selectedCity,
               decoration: const InputDecoration(
@@ -113,14 +430,10 @@ class _ProductPostFormState extends State<ProductPostForm> {
                   _selectedCity = value;
                 });
               },
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please select a category';
-                }
-                return null;
-              },
+              validator: (value) =>
+                  value == null ? 'Please select a city' : null,
             ),
-            SizedBox(height: AppSizes.smallGap),
+            const SizedBox(height: 16),
 
             // Category Dropdown
             DropdownButtonFormField<String>(
@@ -138,16 +451,13 @@ class _ProductPostFormState extends State<ProductPostForm> {
               onChanged: (value) {
                 setState(() {
                   _selectedCategory = value;
+                  _resetConditionalFields();
                 });
               },
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please select a category';
-                }
-                return null;
-              },
+              validator: (value) =>
+                  value == null ? 'Please select a category' : null,
             ),
-            SizedBox(height: AppSizes.smallGap),
+            const SizedBox(height: 16),
 
             // Product Name
             TextFormField(
@@ -156,68 +466,61 @@ class _ProductPostFormState extends State<ProductPostForm> {
                 labelText: 'Product Name',
                 border: OutlineInputBorder(),
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the product name';
-                }
-                return null;
-              },
+              validator: (value) => value == null || value.isEmpty
+                  ? 'Please enter the product name'
+                  : null,
             ),
             const SizedBox(height: 16),
 
-            //Product Image
-            Padding(
-              padding: EdgeInsets.all(AppSizes.smallGap),
-              child: Column(
-                children: [
-                  // Image Upload Field
-                  GestureDetector(
-                    onTap: _pickImage, // Open gallery on tap
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(AppSizes.smallGap),
-                      ),
-                      padding: EdgeInsets.all(AppSizes.smallGap),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.image,
-                              color: AppColors.secondaryIconColor),
-                          SizedBox(width: AppSizes.smallGap),
-                          Expanded(
-                            child: Text(
-                              _imageFile == null
-                                  ? 'Tap to upload product image'
-                                  : 'Image selected: ${_imageFile!.path.split('/').last}',
-                              style: TextStyle(
-                                color: _imageFile == null
-                                    ? Colors.grey
-                                    : Colors.black,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: AppSizes.smallGap),
-
-                  // Display Selected Image
-                  if (_imageFile != null)
-                    Container(
-                      height: AppSizes.largeGap * 10,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(AppSizes.largeGap),
-                        image: DecorationImage(
-                          image: FileImage(_imageFile!),
-                          fit: BoxFit.cover,
+            // Product Image
+            GestureDetector(
+              onTap: _pickImage,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: const EdgeInsets.all(12),
+                child: Row(
+                  children: [
+                    const Icon(Icons.image, color: Colors.grey),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        _imageFile == null
+                            ? 'Tap to upload product image'
+                            : 'Image selected: ${_imageFile!.path.split('/').last}',
+                        style: TextStyle(
+                          color:
+                              _imageFile == null ? Colors.grey : Colors.black,
                         ),
                       ),
                     ),
-                ],
+                  ],
+                ),
               ),
             ),
+            if (_imageFile != null) ...[
+              const SizedBox(height: 8),
+              Container(
+                height: 150,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  image: DecorationImage(
+                    image: FileImage(_imageFile!),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ],
+            const SizedBox(height: 16),
+
+            // Conditional Fields
+            if (_selectedCategory != null) ...[
+              _buildConditionalFields(),
+              const SizedBox(height: 16),
+            ],
 
             // Product Description
             TextFormField(
@@ -227,14 +530,11 @@ class _ProductPostFormState extends State<ProductPostForm> {
                 border: OutlineInputBorder(),
               ),
               maxLines: 3,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the product description';
-                }
-                return null;
-              },
+              validator: (value) => value == null || value.isEmpty
+                  ? 'Please enter the product description'
+                  : null,
             ),
-            SizedBox(height: AppSizes.smallGap),
+            const SizedBox(height: 16),
 
             // Price
             TextFormField(
@@ -255,7 +555,7 @@ class _ProductPostFormState extends State<ProductPostForm> {
                 return null;
               },
             ),
-            SizedBox(height: AppSizes.smallGap),
+            const SizedBox(height: 16),
 
             // Quantity
             TextFormField(
@@ -275,21 +575,30 @@ class _ProductPostFormState extends State<ProductPostForm> {
                 return null;
               },
             ),
-            SizedBox(height: AppSizes.smallGap),
+            const SizedBox(height: 16),
 
-            // Brand (Optional)
+            // Brand (Optional for most categories, required for some)
             TextFormField(
               controller: _brandController,
               decoration: const InputDecoration(
                 labelText: 'Brand (Optional)',
                 border: OutlineInputBorder(),
               ),
+              validator: (value) {
+                // Make brand required for electronics
+                if (_selectedCategory == 'Electronics' &&
+                    (value == null || value.isEmpty)) {
+                  return 'Please enter the brand';
+                }
+                return null;
+              },
             ),
-            SizedBox(height: AppSizes.smallGap),
+            const SizedBox(height: 16),
 
             // Color Options (Optional)
             const Text('Color Options (Optional)'),
             Wrap(
+              spacing: 8,
               children: _colors.map((color) {
                 return FilterChip(
                   label: Text(color),
@@ -306,67 +615,55 @@ class _ProductPostFormState extends State<ProductPostForm> {
                 );
               }).toList(),
             ),
-            SizedBox(height: AppSizes.smallGap),
-
-            // Size Options (Optional)
-            const Text('Size Options (Optional)'),
-            Wrap(
-              children: _sizes.map((size) {
-                return FilterChip(
-                  label: Text(size),
-                  selected: _selectedSizes.contains(size),
-                  onSelected: (selected) {
-                    setState(() {
-                      if (selected) {
-                        _selectedSizes.add(size);
-                      } else {
-                        _selectedSizes.remove(size);
-                      }
-                    });
-                  },
-                );
-              }).toList(),
-            ),
-            SizedBox(height: AppSizes.smallGap),
+            const SizedBox(height: 16),
 
             // Submit Button
+            // SizedBox(
+            //   width: double.infinity,
+            //   child: ElevatedButton(
+            //     onPressed: _submitForm,
+            //     style: ElevatedButton.styleFrom(
+            //       padding: const EdgeInsets.symmetric(vertical: 16),
+            //     ),
+            //     child: const Text('Post Product', style: TextStyle(fontSize: 18)),
+            //   ),
+            // ),
             Center(
-              child: GestureDetector(
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    // Handle form submission
-                    final productData = {
-                      'name': _productNameController.text,
-                      'description': _productDescriptionController.text,
-                      'price': double.parse(_priceController.text),
-                      'quantity': int.parse(_quantityController.text),
-                      'category': _selectedCategory,
-                      'brand': _brandController.text,
-                      'colors': _selectedColors,
-                      'sizes': _selectedSizes,
-                    };
-                    print('Product Data: $productData');
-                    // You can now send this data to your backend or database
-                  }
-                },
-                child: Container(
-                  width: double.infinity,
-                  height: AppSizes.largeGap,
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryIconColor,
-                    borderRadius: BorderRadius.circular(AppSizes.smallGap),
-                    border: Border.all(color: AppColors.primaryIconColor),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Post Product',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.white),
-                    ),
+                child: GestureDetector(
+              onTap: () {
+                if (_formKey.currentState!.validate()) {
+                  // Handle form submission
+                  final productData = {
+                    'name': _productNameController.text,
+                    'description': _productDescriptionController.text,
+                    'price': double.parse(_priceController.text),
+                    'quantity': int.parse(_quantityController.text),
+                    'category': _selectedCategory,
+                    'brand': _brandController.text,
+                    'colors': _selectedColors,
+                    'sizes': _selectedSizes,
+                  };
+                  print('Product Data: $productData');
+                  // You can now send this data to your backend or database
+                }
+              },
+              child: Container(
+                width: double.infinity,
+                height: AppSizes.largeGap,
+                decoration: BoxDecoration(
+                  color: AppColors.primaryIconColor,
+                  borderRadius: BorderRadius.circular(AppSizes.smallGap),
+                  border: Border.all(color: AppColors.primaryIconColor),
+                ),
+                child:  Center(
+                  child: Text(
+                    'Post Product',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.white, fontSize: AppSizes.secondaryFontSize*.9),
                   ),
                 ),
               ),
-            ),
+            ))
           ],
         ),
       ),

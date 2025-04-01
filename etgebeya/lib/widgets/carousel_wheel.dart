@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:etgebeya/measures/size_consts.dart';
+import 'package:etgebeya/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -104,8 +105,8 @@ class _MyCarouselSliderState extends State<MyCarouselSlider> {
           controller: _controller,
           count: ads.length,
           effect: const ExpandingDotsEffect(
-            activeDotColor: Color.fromRGBO(48, 111, 183, 1),
-            dotColor: Color.fromRGBO(96, 132, 173, 1),
+            activeDotColor: AppColors.primaryIconColor,
+            dotColor: AppColors.secondaryIconColor,
             dotWidth: 15,
             dotHeight: 15,
             spacing: 15,

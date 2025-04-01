@@ -1,4 +1,5 @@
 import 'package:etgebeya/utils/colors.dart';
+import 'package:etgebeya/widgets/dynamic_forms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -47,7 +48,16 @@ class MyAppBar extends StatelessWidget {
                 color: AppColors.primaryIconColor, // Replace AppColors.primaryIconColor
               ),
               onPressed: () {
-                // Handle notification action
+                 Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation1, animation2) =>
+                      const DynamicFormScreen(),
+                  transitionDuration: Duration.zero, // No transition duration
+                  reverseTransitionDuration:
+                      Duration.zero, // No reverse transition duration
+                ),
+              );
               },
             ),
           ],
