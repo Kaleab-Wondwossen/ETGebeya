@@ -5,7 +5,14 @@ import '../measures/size_consts.dart';
 
 
 class PersonalInfoContainer extends StatefulWidget {
-  const PersonalInfoContainer({super.key});
+   final String fullName;
+  final String email;
+
+  const PersonalInfoContainer({
+    super.key,
+    required this.fullName,
+    required this.email,
+  });
 
   @override
   State<PersonalInfoContainer> createState() => _PersonalInfoContainerState();
@@ -36,7 +43,7 @@ class _PersonalInfoContainerState extends State<PersonalInfoContainer> {
                 color:  AppColors.primaryIconColor,
               ),
               Text(
-                '   Phone Number',
+                '   Full Name      ',
                 style: TextStyle(
                   fontSize: AppSizes.tertiaryFontSize,
                   color: Colors.black,
@@ -44,7 +51,7 @@ class _PersonalInfoContainerState extends State<PersonalInfoContainer> {
               ),
               SizedBox(width: AppSizes.mediumGap * 3),
               Text(
-                '+251 912 456 666',
+                widget.fullName,
                 style: TextStyle(
                   fontSize: AppSizes.tertiaryFontSize,
                   color: Colors.black,
@@ -74,7 +81,7 @@ class _PersonalInfoContainerState extends State<PersonalInfoContainer> {
               ),
               SizedBox(width: AppSizes.mediumGap * 5.5),
               Text(
-                "email@gmail.com",
+               widget.email,
                 style: TextStyle(
                   fontSize: AppSizes.tertiaryFontSize,
                   color: Colors.black,

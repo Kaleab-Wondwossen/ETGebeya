@@ -93,8 +93,15 @@ class _MyNavBarState extends State<MyNavBar> {
             case 2:
               isUserLoggedIn().then((loggedIn) {
                 if (loggedIn) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const PostItems()));
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) =>
+                          const PostItems(),
+                      transitionDuration: Duration.zero,
+                      reverseTransitionDuration: Duration.zero,
+                    ),
+                  );
                 } else {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (_) => const LogIn()));
