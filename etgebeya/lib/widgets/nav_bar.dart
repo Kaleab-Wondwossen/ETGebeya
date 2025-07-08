@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 
 import '../screens/Profile/profile_screen.dart';
 import '../screens/home_page.dart';
+import '../screens/post_screen.dart';
+import '../utils/auth_guard.dart';
 
 class MyNavBar extends StatefulWidget {
   final int index;
@@ -89,29 +91,36 @@ class _MyNavBarState extends State<MyNavBar> {
               );
               break;
             case 2:
-              Navigator.push(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation1, animation2) =>
-                      const LogIn(),
-                  transitionDuration: Duration.zero, // No transition duration
-                  reverseTransitionDuration:
-                      Duration.zero, // No reverse transition duration
-                ),
-              );
+              isUserLoggedIn().then((loggedIn) {
+                if (loggedIn) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const PostItems()));
+                } else {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const LogIn()));
+                }
+              });
               break;
+
             case 3:
-              Navigator.push(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation1, animation2) =>
-                      const ProfileScreen(),
-                  transitionDuration: Duration.zero, // No transition duration
-                  reverseTransitionDuration:
-                      Duration.zero, // No reverse transition duration
-                ),
-              );
+              isUserLoggedIn().then((loggedIn) {
+                if (loggedIn) {
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) =>
+                          const ProfileScreen(),
+                      transitionDuration: Duration.zero,
+                      reverseTransitionDuration: Duration.zero,
+                    ),
+                  );
+                } else {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const LogIn()));
+                }
+              });
               break;
+
             case 4:
               showDialog(
                 context: context,

@@ -1,14 +1,16 @@
+import 'dart:convert';
+
 import 'package:etgebeya/measures/size_consts.dart';
-import 'package:etgebeya/screens/post_screen.dart';
 import 'package:etgebeya/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../api/api_service.dart';
 import '../widgets/my_button.dart';
 import '../widgets/my_text_box.dart';
 import 'SignUp/sign_up_with_google.dart';
-
 
 class LogIn extends StatefulWidget {
   final void Function()? ontap;
@@ -19,9 +21,49 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
-
   final emailcontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
+
+  Future<void> _handleLogin() async {
+    final email = emailcontroller.text.trim();
+    final password = passwordcontroller.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Email and password cannot be empty")),
+      );
+      return;
+    }
+
+    final res = await ApiService.post('/auth/login', {
+      'username': email,
+      'password': password,
+    });
+
+    print('Status: ${res.statusCode}');
+    print('Body: ${res.body}');
+
+    if (res.statusCode == 200) {
+      final data = jsonDecode(res.body);
+
+      // ✅ Check if token exists
+      final token = data['accessToken'];
+      if (token is String && token.isNotEmpty) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token);
+
+        Navigator.pop(context); // Go back to guarded screen
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('No token received from server')),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Login failed')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +88,9 @@ class _LogInState extends State<LogIn> {
               Text(
                 "Login",
                 style: GoogleFonts.acme(
-                  fontSize: AppSizes.primaryFontSize * 1.2,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primaryIconColor
-                ),
+                    fontSize: AppSizes.primaryFontSize * 1.2,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primaryIconColor),
               ),
               SizedBox(
                 height: AppSizes.smallGap * .5,
@@ -80,38 +121,11 @@ class _LogInState extends State<LogIn> {
                 height: AppSizes.smallGap * 2.5,
               ),
               GestureDetector(
-                onTap: (){},
-                // onTap: () {
-                //   Navigator.push(
-                //     context,
-                //     PageRouteBuilder(
-                //       pageBuilder: (context, animation1, animation2) =>
-                //           const HomeScreen(),
-                //       transitionDuration:
-                //           Duration.zero, // No transition duration
-                //       reverseTransitionDuration:
-                //           Duration.zero, // No reverse transition duration
-                //     ),
-                //   );
-                // },
-                child: GestureDetector(
-                  onTap: (){
-                     Navigator.push(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation1, animation2) =>
-                      const PostItems(),
-                  transitionDuration: Duration.zero, // No transition duration
-                  reverseTransitionDuration:
-                      Duration.zero, // No reverse transition duration
-                ),
-              );
-                  },
-                  child: MyBytton(
-                      height: AppSizes.largeGap * 1.5,
-                      width: AppSizes.largeGap * 9.5,
-                      btnName: "Login"),
-                ),
+                onTap: _handleLogin,
+                child: MyBytton(
+                    height: AppSizes.largeGap * 1.5,
+                    width: AppSizes.largeGap * 9.5,
+                    btnName: "Login"),
               ),
               SizedBox(
                 height: AppSizes.smallGap * 2,
@@ -132,15 +146,16 @@ class _LogInState extends State<LogIn> {
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation1, animation2) =>
-                      const SignUpWithGoogle(),
-                  transitionDuration: Duration.zero, // No transition duration
-                  reverseTransitionDuration:
-                      Duration.zero, // No reverse transition duration
-                ),
-              );
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              const SignUpWithGoogle(),
+                          transitionDuration:
+                              Duration.zero, // No transition duration
+                          reverseTransitionDuration:
+                              Duration.zero, // No reverse transition duration
+                        ),
+                      );
                     },
                     child: GestureDetector(
                       onTap: widget.ontap,
